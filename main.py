@@ -1,4 +1,3 @@
-from time import sleep
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -6,11 +5,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.chrome.options import Options
-from selenium.common.exceptions import TimeoutException
 
-
-from logging_service import setup_logger
-from utils import close_ad_if_exists
+from utils.logging_service import setup_logger
+from utils.utils import close_ad_if_exists
 
 
 URL = "https://www.infomoney.com.br/cotacoes/b3/acao"
@@ -132,7 +129,7 @@ for linha in linhas:
     except:
         continue
 
-with open("cotacoes.txt", "w") as f:
+with open("data/cotacoes.txt", "w") as f:
     for item in dados:
         f.write(item + "\n")
 

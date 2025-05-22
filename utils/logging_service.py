@@ -4,13 +4,12 @@ import os
 
 def setup_logger(name, function):
 
-    os.makedirs("./logs", exist_ok=True)
     # Create a logger
     logger = logging.getLogger(function)
     logger.setLevel(logging.DEBUG)
 
     # Create handlers
-    file_handler = logging.FileHandler(f"logs/{name}.log")
+    file_handler = logging.FileHandler(f"{name}.log", mode="w")
     file_handler.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter(

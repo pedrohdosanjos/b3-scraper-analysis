@@ -21,7 +21,7 @@ def run_scraper(logger):
     driver.set_window_size(1280, 800)
     driver.set_window_position(-1280, 0)
 
-    logger.info("_____________________________________")
+    logger.info("=======================================")
 
     driver.get(URL)
 
@@ -102,5 +102,5 @@ def run_scraper(logger):
         for item in dados:
             f.write(item + "\n")
 
-    logger.info("_____________________________________")
+    logger.info("======================================")
     driver.quit()

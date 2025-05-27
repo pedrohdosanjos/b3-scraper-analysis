@@ -1,2 +1,9 @@
 selenium
 webdriver-manager
+tkinter
+pandas
+matplotlib
+logging
+json
+smtplib
+email-validator

@@ -75,6 +75,8 @@ def run_analysis(logger):
         stacked=True, color=["green", "red"], figsize=(12, 8), width=0.8
     )
     ax.set_title("Quantidade de Ocorrências por Setor: Altas vs Baixas")
+    ax.title.set_fontweight("bold")
+    ax.title.set_fontsize(14)
     ax.set_xlabel("Quantidade de Ocorrências")
     ax.set_ylabel("")
     plt.tight_layout()

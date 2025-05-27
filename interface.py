@@ -28,6 +28,7 @@ def run_interface(logger):
     btn = tk.Button(root, text="Iniciar", command=on_click)
     btn.pack(pady=20)
 
+    root.protocol("WM_DELETE_WINDOW", root.destroy)
     root.mainloop()
 
 

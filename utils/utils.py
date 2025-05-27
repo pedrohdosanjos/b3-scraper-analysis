@@ -55,6 +55,7 @@ def scrape_rows(driver, logger):
     dados = []
     for linha in linhas:
         try:
+            WebDriverWait(driver, 10).until(EC.visibility_of(linha))
             ticker = linha.find_element(By.CSS_SELECTOR, "a").text.strip()
             nome = linha.find_element(By.CSS_SELECTOR, ".ds-uitext-xs").text.strip()
             preco = (
@@ -76,19 +77,23 @@ def scrape_rows(driver, logger):
             try:
                 link = linha.find_element(By.CSS_SELECTOR, "a")
                 driver.execute_script("arguments[0].click();", link)
+                clicked = True
                 WebDriverWait(driver, 10).until(
                     EC.visibility_of_element_located((By.CSS_SELECTOR, ".code-ativo"))
                 )
                 setor = driver.find_elements(By.TAG_NAME, "h3")[2].text.split(": ")[1]
+                clicked = False
                 driver.back()
             except:
-                logger.error("Erro ao obter setor, pulando")
+                logger.error("Erro ao obter setor")
                 setor = "N/A"
-                driver.back()
+                if clicked:
+                    driver.back()
+                    clicked = False
             logger.info(f"{ticker} | {nome} | {preco} | {var} | {var12} | {setor}")
             dados.append(f"{ticker},{nome},{preco},{var},{var12},{setor}")
         except:
-            logger.error("Linha inválida, pulando")
+            logger.error("Linha inválida")
     return dados
 
 

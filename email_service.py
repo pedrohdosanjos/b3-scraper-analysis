@@ -1,28 +1,43 @@
 # email_service.py
+import json
 import smtplib
 from email.message import EmailMessage
+from email.utils import make_msgid
 import os
 
 
-def send_report_email(to_email, attachments, logger=None):
-    EMAIL_REMETENTE = "pedrohdosanjos@gmail.com"  # coloque seu email aqui
-    SENHA = ""  # use senha de app para Gmail
+def send_report_email(to_email, image_paths, logger=None):
+    with open("credentials.json", "r") as f:
+        credentials = json.load(f)
+        EMAIL_REMETENTE = credentials.get("email")
+        SENHA = credentials.get("password")
 
     msg = EmailMessage()
     msg["Subject"] = "Relatórios gerados"
     msg["From"] = EMAIL_REMETENTE
     msg["To"] = to_email
-    msg.set_content("Segue em anexo os relatórios gerados.")
 
-    for arquivo in attachments:
+    # Criar IDs únicos para as imagens
+    cids = [make_msgid(domain="example.com")[1:-1] for _ in image_paths]
+
+    # Montar corpo HTML com as imagens embutidas via cid
+    html_content = "<h2>Relatórios gerados</h2><br>"
+    for cid in cids:
+        html_content += f'<img src="cid:{cid}" style="max-width:900px;"><br><br>'
+
+    msg.add_alternative(html_content, subtype="html")
+
+    # Anexar imagens com Content-ID
+    for path, cid in zip(image_paths, cids):
         try:
-            with open(arquivo, "rb") as f:
-                data = f.read()
-                nome = os.path.basename(arquivo)
-                msg.add_attachment(data, maintype="image", subtype="png", filename=nome)
+            with open(path, "rb") as img:
+                data = img.read()
+                msg.get_payload()[0].add_related(
+                    data, maintype="image", subtype="png", cid=cid
+                )
         except Exception as e:
             if logger:
-                logger.error(f"Erro ao anexar arquivo {arquivo}: {e}")
+                logger.error(f"Erro ao anexar imagem {path}: {e}")
 
     try:
         with smtplib.SMTP_SSL("smtp.gmail.com", 465) as smtp:

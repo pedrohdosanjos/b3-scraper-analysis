@@ -1,21 +1,21 @@
-# Projeto Pessoal - Análise de Dados com Automação e Envio de Relatórios
+# Personal Project - Data Analysis with Automation and Report Delivery
 
-Este é um projeto pessoal para automatizar a coleta, análise e envio de relatórios baseados em dados financeiros, desenvolvido para aprendizado prático na área de análise de dados.
-
----
-
-## Sobre o Projeto
-
-Este sistema realiza:
-
-- Scraping automático de dados financeiros da B3.  
-- Análise dos dados com geração de tabelas e gráficos relevantes.  
-- Envio de relatórios por email, incluindo gráficos embutidos no corpo da mensagem.  
-- Interface gráfica simples para interação, captura de email e disparo do processo completo.
+This is a personal project developed to practice data analysis through the automation of financial data collection, analysis, and report delivery.
 
 ---
 
-## Tecnologias Utilizadas
+## About the Project
+
+This system performs:
+
+- Automatic scraping of financial data from B3 (Brazilian Stock Exchange).  
+- Data analysis with relevant tables and chart generation.  
+- Sending reports via email, with charts embedded in the message body.  
+- A simple graphical interface to enter the recipient's email and trigger the entire process.
+
+---
+
+## Technologies Used
 
 - Python 3.8+  
 - Pandas  
@@ -26,34 +26,36 @@ Este sistema realiza:
 
 ---
 
-## Funcionalidades
+## Features
 
-- Coleta diária de cotações e variações de ações.  
-- Geração automática de tabelas e gráficos em PNG.  
-- Envio por email com imagens embutidas e anexadas.  
-- Interface intuitiva para informar email.  
-- Logs para monitoramento.
+- Daily collection of stock prices and variations.  
+- Automatic generation of tables and PNG charts.  
+- Email delivery with images embedded and attached.  
+- Intuitive interface to input email.  
+- Logs for monitoring and debugging.
 
-## Como Rodar
+---
 
-1. Clone este repositório:  
+## How to Run
+
+1. Clone this repository:  
    ```bash
    git clone https://github.com/pedrohdosanjos/b3-scraper-analysis.git
    cd b3-scraper-analysis
 
-2. Instale as dependências:
+2. Install dependencies:
     ```bash
     pip install -r requirements.txt
 
-3. Configure seu email e senha de aplicativo google no arquivo credentials.json
+3. Configure your email and app password in the credentials.json file:
     ```bash
     {
-    "email": "seu_email@gmail.com",
-    "password": "sua_senha_de_app"
+    "email": "your_email@gmail.com",
+    "password": "your_app_password"
     }
 
-4. Execute:
+4. Run the application:
     ```bash
     python main.py
 
-5. Informe seu email e clique em enviar.
+5. Enter your email address and click send.

@@ -4,4 +4,3 @@ __pycache__/
 *.log
 data/
 credentials.json
-assets/

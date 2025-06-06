@@ -8,6 +8,7 @@ logger = setup_logger("scraper", "scraper.log")
 
 def main():
     run_interface(logger)
+    return
 
 
 if __name__ == "__main__":

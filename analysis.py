@@ -30,11 +30,15 @@ def run_analysis(logger):
     tabela["Variação diária"] = tabela["Variação diária"].map(lambda x: f"{x:.2f}%")
 
     # Dividir em altas e baixas
-    altas = tabela[tabela["Variação diária"].str.startswith("-") == False].sort_values(
-        by="Variação diária", ascending=False
+    altas = (
+        tabela[tabela["Variação diária"].str.startswith("-") == False]
+        .sort_values(by="Variação diária", ascending=False)
+        .fillna("N/A")
     )
-    baixas = tabela[tabela["Variação diária"].str.startswith("-")].sort_values(
-        by="Variação diária", ascending=False
+    baixas = (
+        tabela[tabela["Variação diária"].str.startswith("-")]
+        .sort_values(by="Variação diária", ascending=False)
+        .fillna("N/A")
     )
 
     def plot_table(data, filename, title):

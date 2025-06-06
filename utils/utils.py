@@ -1,3 +1,4 @@
+from asyncio import sleep
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
@@ -15,7 +16,6 @@ def init_driver():
         service=Service(ChromeDriverManager().install()), options=options
     )
     driver.set_window_size(1280, 800)
-    driver.set_window_position(-1280, 0)
     return driver
 
 
@@ -84,11 +84,13 @@ def scrape_rows(driver, logger):
                 setor = driver.find_elements(By.TAG_NAME, "h3")[2].text.split(": ")[1]
                 clicked = False
                 driver.back()
+                wait_table(driver)
             except:
                 logger.error("Erro ao obter setor")
                 setor = "N/A"
                 if clicked:
                     driver.back()
+                    wait_table(driver)
                     clicked = False
             logger.info(f"{ticker} | {nome} | {preco} | {var} | {var12} | {setor}")
             dados.append(f"{ticker},{nome},{preco},{var},{var12},{setor}")

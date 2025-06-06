@@ -2,6 +2,8 @@
 
 This is a personal project developed to practice data analysis through the automation of financial data collection, analysis, and report delivery.
 
+![Exemplo de relatório](assets/relatorio_example.png)
+
 ---
 
 ## About the Project

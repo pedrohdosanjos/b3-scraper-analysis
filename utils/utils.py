@@ -73,30 +73,42 @@ def scrape_rows(driver, logger):
                 .text.replace("%", "")
                 .replace(",", ".")
             )
-            # clicar para setor
+            
+            # Clicar para abrir o setor em uma nova aba
             try:
                 link = linha.find_element(By.CSS_SELECTOR, "a")
-                driver.execute_script("arguments[0].click();", link)
-                clicked = True
+                driver.execute_script("window.open(arguments[0].href, '_blank');", link)  # Abre em nova aba
+                # Alternar para a nova aba
+                driver.switch_to.window(driver.window_handles[1])  # A nova aba será a segunda na lista de janelas abertas
+
+                # Esperar o setor ser carregado
                 WebDriverWait(driver, 10).until(
                     EC.visibility_of_element_located((By.CSS_SELECTOR, ".code-ativo"))
                 )
                 setor = driver.find_elements(By.TAG_NAME, "h3")[2].text.split(": ")[1]
-                clicked = False
-                driver.back()
-                wait_table(driver)
-            except:
-                logger.error("Erro ao obter setor")
+
+                # Fechar a nova aba
+                driver.close()
+
+                # Voltar para a aba original
+                driver.switch_to.window(driver.window_handles[0])
+
+            except Exception as e:
+                logger.error(f"Erro ao obter setor: {e}")
                 setor = "N/A"
-                if clicked:
-                    driver.back()
-                    wait_table(driver)
-                    clicked = False
+                # Garantir que a aba original seja selecionada, mesmo se o erro ocorrer
+                driver.close()  # Fechar a nova aba
+                driver.switch_to.window(driver.window_handles[0])  # Voltar para a aba original
+
             logger.info(f"{ticker} | {nome} | {preco} | {var} | {var12} | {setor}")
             dados.append(f"{ticker},{nome},{preco},{var},{var12},{setor}")
-        except:
-            logger.error("Linha inválida")
+
+        except Exception as e:
+            logger.error(f"Linha inválida: {e}")
+    
     return dados
+
+
 
 
 def close_ad_if_exists(driver, logger):

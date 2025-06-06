@@ -1,6 +1,7 @@
 __pycache__/
 *.pyc
 .venv/
+venv/
 *.log
 data/
 credentials.json

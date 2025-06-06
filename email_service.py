@@ -6,7 +6,8 @@ from email.utils import make_msgid
 import os
 
 
-def send_report_email(to_email, image_paths, logger=None):
+def send_report_email(to_email, image_paths, logger):
+    logger.info("Enviando email com relatórios...") 
     with open("credentials.json", "r") as f:
         credentials = json.load(f)
         EMAIL_REMETENTE = credentials.get("email")

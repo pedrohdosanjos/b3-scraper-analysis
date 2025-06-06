@@ -22,7 +22,11 @@ def send_report_email(to_email, image_paths, logger):
     cids = [make_msgid(domain="example.com")[1:-1] for _ in image_paths]
 
     # Montar corpo HTML com as imagens embutidas via cid
-    html_content = "<h2>Relatórios gerados</h2><br>"
+    html_content = """
+    <h2>Relatórios gerados</h2>
+    <p>Este e-mail foi enviado automaticamente pelo crawler, que coletou os dados financeiros e gerou os gráficos para você.</p>
+    <p>Abaixo, você encontrará os relatórios gerados com as visualizações dos dados:</p><br>
+    """
     for cid in cids:
         html_content += f'<img src="cid:{cid}" style="max-width:900px;"><br><br>'
 

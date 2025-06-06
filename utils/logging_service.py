@@ -9,7 +9,7 @@ def setup_logger(name, function):
     logger.setLevel(logging.DEBUG)
 
     # Create handlers
-    file_handler = logging.FileHandler(f"{name}.log", mode="w")
+    file_handler = logging.FileHandler(f"{name}.log", mode="w", encoding="utf-8")
     file_handler.setLevel(logging.DEBUG)
 
     formatter = logging.Formatter(

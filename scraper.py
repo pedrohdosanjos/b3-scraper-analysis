@@ -19,10 +19,10 @@ def run_scraper(logger):
         html_prev = select_filter(driver, filtro, logger, html_prev)
         resultados[filtro] = scrape_rows(driver, logger)
 
-    with open("data/cotacoes_altas.txt", "w") as f_altas:
+    with open("data/cotacoes_altas.txt", "w", encoding="utf-8") as f_altas:
         for linha in resultados["High"]:
             f_altas.write(linha + "\n")
-    with open("data/cotacoes_baixas.txt", "w") as f_baixas:
+    with open("data/cotacoes_baixas.txt", "w", encoding="utf-8") as f_baixas:
         for linha in resultados["Low"]:
             f_baixas.write(linha + "\n")
 
